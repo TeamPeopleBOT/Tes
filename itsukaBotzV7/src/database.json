@@ -1,0 +1,72 @@
+{
+  "users": {
+    "6289513081052@s.whatsapp.net": {
+      "serialNumber": "4ebd1f1e5d6e57d42b5981e1a96fe691",
+      "title": "User",
+      "afkTime": -1,
+      "badword": 0,
+      "afkReason": "",
+      "nick": "Adrian",
+      "premium": false,
+      "limit": 5,
+      "totalLimit": 0
+    }
+  },
+  "chats": {
+    "6289513081052@s.whatsapp.net": {
+      "autosimi": false,
+      "badword": false,
+      "antilink": false,
+      "antilinkgc": false,
+      "notification": {
+        "status": false,
+        "text_left": "",
+        "text_welcome": ""
+      }
+    }
+  },
+  "game": {
+    "family100": [],
+    "tebaklagu": [],
+    "kuismath": [],
+    "tebalgambar": [],
+    "tebakkata": [],
+    "tebakkalimat": [],
+    "tebaklirik": [],
+    "tebaktebakan": [],
+    "tebakbendera": [],
+    "tebakbendera2": [],
+    "tebakkabupaten": [],
+    "tebakkimia": [],
+    "tebakasahotak": [],
+    "tebaksiapakahaku": [],
+    "tebaksusunkata": [],
+    "tebaktekateki": [],
+    "akinator": []
+  },
+  "settings": {
+    "6287778401792@s.whatsapp.net": {
+      "totalhit": 0,
+      "totalError": 0,
+      "typemenu": "v2",
+      "typereply": "v1",
+      "autobio": false,
+      "autoread": false,
+      "onlyindo": false,
+      "watermark": {
+        "packname": "",
+        "author": ""
+      },
+      "about": {
+        "bot": {
+          "nick": "PT. AdrianProject",
+          "alias": "Arxzy-MD"
+        },
+        "owner": {
+          "alias": "-"
+        }
+      },
+      "autoblok212": true
+    }
+  }
+}
