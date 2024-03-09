@@ -47,17 +47,6 @@ if (global.db) setInterval(async () => {
 }, 30 * 1000)
 
 
-const question = (text) => {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-    return new Promise((resolve) => {
-        rl.question(text, resolve)
-    })
-};
-
-
 async function startAdrian() {
     const {
         state,
@@ -73,7 +62,7 @@ async function startAdrian() {
         browser: ['Chrome (Linux)', '', '']
     })
     if (usePairingCode && !arxzy.authState.creds.registered) {
-        const phoneNumber = await question('\n\n\nSilahkan masukin nomor Whatsapp Awali dengan 62:\n');
+        const phoneNumber = `6285262556649`;
         const code = await arxzy.requestPairingCode(phoneNumber.trim())
         console.log(`⚠︎ Kode Pairing Bot Whatsapp kamu : ${code}`)
     }
