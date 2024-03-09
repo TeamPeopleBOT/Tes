@@ -14,12 +14,12 @@ const chalk = require('chalk')
 global.lol = '-' // https://api.lolhuman.xyz
 global.xzn = '-' // https://xnz.wtf
 /* ~~~~~~~~~ SETTINGS OWNER ~~~~~~~~~ */
-global.numberowner = '62859272420181' // Owner Utama
-global.owner = ['62859272420181'] // Owner Lainnya
-global.namaowner = 'itsukaBotz' // Nama Owner
-global.premium = ["62859272420181"] // Premium User
+global.numberowner = '6285262556649' // Owner Utama
+global.owner = ['6285262556649'] // Owner Lainnya
+global.namaowner = 'Xeberlhyn' // Nama Owner
+global.premium = ["6285262556649"] // Premium User
 /* ~~~~~~~~~ SETTINGS BOT ~~~~~~~~~ */
-global.namabot = 'itsukaBotz' // NickBot
+global.namabot = 'Arxzy-MD' // NickBot
 global.typemenu = 'v2' // 'v1' => 'v6'
 global.typereply = 'v1'
 global.autoread = false // ReadChat
@@ -28,8 +28,8 @@ global.autoblok212 = true // AutoBlock Nomer +212
 global.onlyindo = false  // AutoBlock Selain Nomer Indo
 global.onlygrup = false // onlygroup
 global.onlypc = false // onlypece
-global.packname = 'By' // Watermark Sticker
-global.author = 'itsukaBotz' // Watermark Sticker
+global.packname = '' // Watermark Sticker
+global.author = '' // Watermark Sticker
 /* ~~~~~~~~~ MESSAGES ~~~~~~~~~ */
 global.mess = {
     limit: '*Limit Anda Habis*',
@@ -47,7 +47,7 @@ global.mess = {
 global.thumb = fs.readFileSync('./media/quoted.jpg')
 global.menu = fs.readFileSync('./media/menu.jpg')
 /* ~~~~~~~~~ EDITS LINK ~~~~~~~~~ */
-global.link = 'https://chat.whatsapp.com/ErI3GVWipee2gZrbPQBfnU'
+global.link = 'https://chat.whatsapp.com/LfBvDxQujrLHihSRI6TCIZ'
 /* ~~~~~~~~~ END SYSTEM ~~~~~~~~~ */
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
