@@ -1,7 +1,7 @@
 {
-    "name": "itsukaBotz",
+    "name": "VTEAM",
     "version": "1.1.0",
-    "description": "Created By itsukaBotz",
+    "description": "Created By Xeberlhyn",
     "main": "index.js",
     "directories": {
         "lib": "lib",
@@ -12,7 +12,7 @@
         "code": "node adrian-code.js",
         "start": "node index.js"
     },
-    "author": "ArxzyDev",
+    "author": "VTEAMS",
     "license": "MIT",
     "dependencies": {
         "@adiwajshing/keyed-db": "^0.2.4",
