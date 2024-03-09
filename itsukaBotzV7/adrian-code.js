@@ -1,30 +1,52 @@
-/*
-   Created By ArxzyDev
-   Upload By itsukaBotz
-   My Contact wa.me/6285692195658
-   Rxzy-MD V1.2.0
-*/
-
 require('./settings')
 const pino = require('pino')
 const { Boom } = require('@hapi/boom')
+const { Low, JSONFile } = require('./lib/lowdb')
 const fs = require('fs')
 const chalk = require('chalk')
 const FileType = require('file-type')
 const readline = require("readline");
 const path = require('path')
 const axios = require('axios')
+const _ = require('lodash')
 const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc')
 const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@whiskeysockets/baileys")
 const usePairingCode = true
+
 const store = makeInMemoryStore({
     logger: pino().child({
         level: 'silent',
         stream: 'store'
     })
 })
+global.db = new Low(new JSONFile(`src/database.json`))
+
+global.DATABASE = global.db
+global.loadDatabase = async function loadDatabase() {
+  if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
+  if (global.db.data !== null) return
+  global.db.READ = true
+  await global.db.read()
+  global.db.READ = false
+  global.db.data = {
+    users: {},
+    chats: {},
+    game: {},
+    settings: {},
+    ...(global.db.data || {})
+  }
+  global.db.chain = _.chain(global.db.data)
+}
+loadDatabase()
+
+
+if (global.db) setInterval(async () => {
+   if (global.db.data) await global.db.write()
+}, 30 * 1000)
+
+
 const question = (text) => {
     const rl = readline.createInterface({
         input: process.stdin,
@@ -34,6 +56,8 @@ const question = (text) => {
         rl.question(text, resolve)
     })
 };
+
+
 async function startAdrian() {
     const {
         state,
