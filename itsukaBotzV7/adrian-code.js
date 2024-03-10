@@ -12,17 +12,12 @@ const _ = require('lodash')
 const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc')
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@whiskeysockets/baileys")
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto,PHONENUMBER_MCC} = require("@whiskeysockets/baileys")
 const usePairingCode = true
-
-const store = makeInMemoryStore({
-    logger: pino().child({
-        level: 'silent',
-        stream: 'store'
-    })
-})
+const store = makeInMemoryStore({logger: pino().child({level: 'silent', stream: 'store'})})
+const useMobile = process.argv.includes('--mobile')
+pairingNumber = "6285262556649"
 global.db = new Low(new JSONFile(`src/database.json`))
-
 global.DATABASE = global.db
 global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
@@ -42,16 +37,18 @@ global.loadDatabase = async function loadDatabase() {
 loadDatabase()
 
 
-if (global.db) setInterval(async () => {
-   if (global.db.data) await global.db.write()
-}, 30 * 1000)
+if (global.db) setInterval(async () => {if (global.db.data) await global.db.write()}, 30 * 1000)
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
+const question = (text) => new Promise((resolve) => rl.question(text, resolve))
+
+
 
 
 async function startAdrian() {
     const {
         state,
         saveCreds
-    } = await useMultiFileAuthState(`./Adrian`)
+    } = await useMultiFileAuthState(`.Vteam`)
 
     const arxzy = makeWASocket({
         logger: pino({
@@ -61,12 +58,29 @@ async function startAdrian() {
         auth: state,
         browser: ['Chrome (Linux)', '', '']
     })
-    if (usePairingCode && !arxzy.authState.creds.registered) {
-        const phoneNumber = `6285262556649`;
-        const code = await arxzy.requestPairingCode(phoneNumber.trim())
-        console.log(`⚠︎ Kode Pairing Bot Whatsapp kamu : ${code}`)
-    }
 
+if (usePairingCode && !arxzy.authState.creds.registered) {
+if (useMobile) throw new Error('Cannot use pairing code with mobile api')
+
+let phoneNumber
+if (!!pairingNumber) {
+phoneNumber = pairingNumber.replace(/[^0-9]/g, '')
+
+if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
+console.log("Start with your country's WhatsApp code, Example : 62xxx")
+process.exit(0)
+}
+} else {
+phoneNumber = await question(`Please type your WhatsApp number : `)
+phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
+
+}
+setTimeout(async () => {
+let code = await arxzy.requestPairingCode(phoneNumber)
+code = code?.match(/.{1,4}/g)?.join("-") || code
+console.log(`Your Pairing Code : ${code}`)
+}, 3000)
+}
     store.bind(arxzy.ev)
 
     arxzy.ev.on('messages.upsert', async chatUpdate => {
@@ -258,7 +272,6 @@ async function startAdrian() {
 }
 
 startAdrian()
-
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
     fs.unwatchFile(file)
